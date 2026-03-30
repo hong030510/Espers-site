@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ESPERS | 갤러리</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+<div id="imageModal" class="image-modal">
+    <button type="button" class="image-modal-nav prev" id="imageModalPrev">‹</button>
+
+    <div class="image-modal-stage">
+        <img class="image-modal-content" id="imageModalImg" alt="확대 이미지" />
+    </div>
+
+    <button type="button" class="image-modal-nav next" id="imageModalNext">›</button>
+    <span class="image-modal-close" id="imageModalClose">&times;</span>
+</div>
+
+    <header class="header">
+        <div class="container nav">
+            <a href="index.html" class="logo">ESPERS</a>
+            <nav>
+                <ul class="menu">
+                    <li><a href="index.html">홈</a></li>
+                    <li><a href="notice.html">공지사항</a></li>
+                    <li><a href="about.html">임원진 소개</a></li>
+                    <li><a href="activities.html">활동/수상</a></li>
+                    <li><a href="gallery.html" class="active">갤러리</a></li>
+                    <li><a href="join.html">지원안내</a></li>
+                </ul>
+            </nav>
+            <button class="menu-toggle" id="menuToggle">☰</button>
+        </div>
+    </header>
+
+    <main class="page-top">
+        <section class="page-hero soft-blue">
+            <div class="container">
+                <h1 class="page-title">갤러리</h1>
+                <p class="page-desc">ESPERS 활동 사진과 선배 인터뷰를 확인해보세요.</p>
+            </div>
+        </section>
+
+        <section class="gallery-section section">
+            <div class="container">
+
+                <div id="galleryThemeList" class="gallery-theme-list"></div>
+
+                <div id="galleryDetailSection" class="gallery-detail-section" style="display: none;">
+                    <div class="gallery-detail-header">
+                        <button type="button" id="galleryBackBtn" class="gallery-back-btn">← 뒤로가기</button>
+                        <h3 id="galleryDetailTitle" class="gallery-detail-title"></h3>
+                    </div>
+
+                    <div id="graduateGallery" class="gallery-page-grid"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-wrap">
+            <p>© 2026 ESPERS</p>
+            <p>문의: st.espers@gmail.com</p>
+        </div>
+    </footer>
+
+    <script type="module" src="app.js"></script>
+</body>
+
+</html>

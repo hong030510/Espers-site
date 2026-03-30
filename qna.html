@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ESPERS | 동아리 Q&A</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <header class="header">
+        <div class="container nav">
+            <a href="index.html" class="logo">ESPERS</a>
+            <nav>
+                <ul class="menu">
+                    <li><a href="index.html">홈</a></li>
+                    <li><a href="notice.html">공지사항</a></li>
+                    <li><a href="about.html">임원진 소개</a></li>
+                    <li><a href="activities.html">활동/수상</a></li>
+                    <li><a href="gallery.html">갤러리</a></li>
+                    <li><a href="join.html">지원안내</a></li>
+                </ul>
+            </nav>
+            <button class="menu-toggle" id="menuToggle">☰</button>
+        </div>
+    </header>
+
+    <main class="page-top">
+        <section class="page-hero soft-blue">
+            <div class="container">
+                <h1 class="page-title">동아리 Q&A / 건의사항</h1>
+                <p class="page-desc">궁금한 점이나 건의사항을 자유롭게 남겨주세요.</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container small-container">
+                <div class="card qna-card">
+                    <h2 class="qna-section-title">질문 작성</h2>
+                    <p class="qna-section-desc">
+                        궁금한 점이나 건의사항을 남겨주세요. 답변은 아래 목록에서 실시간으로 확인할 수 있습니다.
+                    </p>
+
+                    <input type="text" id="qnaName" placeholder="이름 입력" />
+
+                    <label class="anonymous-check">
+                        <input type="checkbox" id="qnaAnonymous" />
+                        익명으로 작성
+                    </label>
+
+                    <input type="text" id="qnaTitle" placeholder="제목 입력" />
+                    <textarea id="qnaContent" placeholder="질문 또는 건의사항 내용을 입력하세요."></textarea>
+                    <button id="qnaSubmitBtn" class="btn primary">등록하기</button>
+                </div>
+
+                <div class="qna-list-wrap">
+                    <div class="qna-list-header">
+                        <h2 class="qna-section-title">등록된 질문</h2>
+                        <p class="qna-section-desc">
+                            답변이 등록되면 아래에 바로 반영됩니다.
+                        </p>
+                    </div>
+
+                    <div class="qna-scroll-box" id="qnaScrollBox">
+                        <div class="qna-list" id="qnaList"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-wrap">
+            <p>© 2026 ESPERS</p>
+            <p>문의: st.espers@gmail.com</p>
+        </div>
+    </footer>
+
+    <script type="module" src="app.js"></script>
+</body>
+
+</html>

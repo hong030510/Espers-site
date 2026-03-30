@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ESPERS | 메인</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <div id="imageModal" class="image-modal">
+        <span class="image-modal-close" id="imageModalClose">&times;</span>
+        <img class="image-modal-content" id="imageModalImg" alt="확대 이미지" />
+    </div>
+
+    <header class="header">
+        <div class="container nav">
+            <a href="index.html" class="logo">ESPERS</a>
+            <nav>
+                <ul class="menu">
+                    <li><a href="index.html" class="active">홈</a></li>
+                    <li><a href="notice.html">공지사항</a></li>
+                    <li><a href="about.html">임원진 소개</a></li>
+                    <li><a href="activities.html">활동/수상</a></li>
+                    <li><a href="gallery.html">갤러리</a></li>
+                    <li><a href="join.html">지원안내</a></li>
+                </ul>
+            </nav>
+            <button class="menu-toggle" id="menuToggle">☰</button>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container hero-wrap">
+                <div class="hero-text">
+                    <p class="badge">도전 · 협업 · 성장</p>
+                    <h1>
+                        기계시스템공학부<br />
+                        지능형로봇전공<br />
+                        최대규모 학술동아리!<br />
+                        ESPERS
+                    </h1>
+                    <p class="hero-desc">
+                        ESPERS는 다양한 프로젝트와 공모전 참여를 통해
+                        실력을 키우고 성과를 만들어가는 동아리입니다.<br />
+                    </p>
+                    <div class="hero-btns">
+                        <a href="about.html" class="btn primary">간부소개 보기</a>
+                        <a href="activities.html" class="btn secondary">수상/활동 보기</a>
+                        <a href="qna.html" class="btn secondary">동아리 Q&A</a>
+                    </div>
+                </div>
+
+                <div class="hero-image card">
+                    <img id="autoSlideImage" src="assets/동아리 대표 사진/1.jpg" alt="동아리 대표 사진" class="zoomable" />
+                </div>
+            </div>
+        </section>
+
+        <section class="home-top-section">
+            <div class="container">
+                <div class="home-info-grid">
+                    <div class="home-left-column">
+                        <div class="home-notice-box card">
+                            <div class="home-notice-header">
+                                <h2>공지사항</h2>
+                                <a href="notice.html" class="home-notice-more">전체보기</a>
+                            </div>
+                            <div class="home-notice-list" id="homeNoticeList">
+                                <div class="home-notice-empty">등록된 공지사항을 불러오는 중입니다.</div>
+                            </div>
+                        </div>
+
+                        <div class="home-info-card card">
+                            <h3 class="home-info-card-title">동아리 한눈에 보기</h3>
+
+                            <div class="home-info-list">
+                                <div class="home-info-row">
+                                    <span class="home-info-label">위치</span>
+                                    <span class="home-info-value">프론티어 10층 1001호</span>
+                                </div>
+
+                                <div class="home-info-row">
+                                    <span class="home-info-label">정기 임원진회의</span>
+                                    <span class="home-info-value">매주 수요일 19:00</span>
+                                </div>
+
+                                <div class="home-info-row">
+                                    <span class="home-info-label">문의</span>
+                                    <span class="home-info-value">st.espers@gmail.com</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="home-calendar-box card">
+                        <div class="home-calendar-header">
+                            <h2>동아리 일정</h2>
+                            <div class="calendar-month-nav">
+                                <button id="calendarPrevBtn" type="button">&lt;</button>
+                                <span id="calendarMonthLabel">2026.03</span>
+                                <button id="calendarNextBtn" type="button">&gt;</button>
+                            </div>
+                        </div>
+
+                        <div class="mini-calendar">
+                            <div class="calendar-weekdays">
+                                <div>일</div>
+                                <div>월</div>
+                                <div>화</div>
+                                <div>수</div>
+                                <div>목</div>
+                                <div>금</div>
+                                <div>토</div>
+                            </div>
+                            <div class="calendar-grid" id="calendarGrid"></div>
+                        </div>
+
+                        <div class="calendar-schedule-list" id="calendarScheduleList">
+                            <div class="calendar-empty">이번 달 일정이 없습니다.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="intro-section">
+            <div class="container">
+                <div class="intro-card">
+                    <h2 class="section-title">동아리 소개</h2>
+                    <p class="section-text center">
+                        ESPERS 동아리는 기획, 제작, 발표, 협업 등 다양한 경험을 쌓으며
+                        구성원 각자의 성장을 목표로 활동하는 동아리입니다.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="stats section soft-blue">
+            <div class="container">
+                <h2 class="section-title">한눈에 보는 성과</h2>
+                <div class="stats-grid">
+                    <div class="card stat-card">
+                        <h3>15+</h3>
+                        <p>수상 횟수</p>
+                    </div>
+                    <div class="card stat-card">
+                        <h3>30+</h3>
+                        <p>공모전 참여</p>
+                    </div>
+                    <div class="card stat-card">
+                        <h3>100+</h3>
+                        <p>누적 동아리원</p>
+                    </div>
+                    <div class="card stat-card">
+                        <h3>10+</h3>
+                        <p>연간 프로젝트</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">대표 활동 사진</h2>
+                <div class="gallery-grid">
+                    <div class="card image-card">
+                        <img src="assets/동아리 대표 사진/1.jpg" alt="활동 사진 1" class="zoomable" />
+                        <p>동아리 MT 활동</p>
+                    </div>
+                    <div class="card image-card">
+                        <img src="assets/대표사진 1.jpg" alt="활동 사진 2" class="zoomable" />
+                        <p>공모전 수상</p>
+                    </div>
+                    <div class="card image-card">
+                        <img src="assets/대표사진 2.jpg" alt="활동 사진 3" class="zoomable" />
+                        <p>새해 신년 활동</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-wrap">
+            <p>© 2026 ESPERS</p>
+            <p>문의: st.espers@gmail.com</p>
+        </div>
+    </footer>
+
+    <script type="module" src="app.js"></script>
+</body>
+
+</html>
