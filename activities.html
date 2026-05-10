@@ -37,27 +37,33 @@
         <section class="section light-section">
             <div class="container">
                 <h2 class="section-title">2025년 주요 활동</h2>
+
                 <div class="gallery-grid">
                     <div class="card image-card">
                         <img src="assets/수상/라인트레이싱.jpg" alt="교내 라인트레이싱" class="zoomable" />
                         <p>교내 라인트레이싱</p>
                     </div>
+
                     <div class="card image-card">
                         <img src="assets/수상/하계 부트캠프.jpg" alt="발표 활동" class="zoomable" />
                         <p>coss 하계 부트캠프</p>
                     </div>
+
                     <div class="card image-card">
                         <img src="assets/수상/한이음.png" alt="한이음" class="zoomable" />
                         <p>한이음 드림업</p>
                     </div>
+
                     <div class="card image-card">
                         <img src="assets/수상/붕짜.jpg" alt="붕짜" class="zoomable" />
                         <p>붕짜 나들이</p>
                     </div>
+
                     <div class="card image-card">
                         <img src="assets/수상/교육.jpg" alt="교육" class="zoomable" />
                         <p>방학 교육 특강</p>
                     </div>
+
                     <div class="card image-card">
                         <img src="assets/수상/종강파티.jpg" alt="정기 모임" class="zoomable" />
                         <p>종강파티</p>
@@ -68,24 +74,30 @@
 
         <section class="section">
             <div class="container">
-                <h2 class="section-title">수상 경력</h2>
+                <div class="award-title-wrap">
+                    <h2 class="section-title">수상 경력</h2>
+                    <button id="awardOpenBtn" type="button" class="award-plus-btn" style="display: none;">+</button>
+                </div>
 
                 <div class="award-scroll-box" id="awardScrollBox">
                     <div class="award-list" id="awardList"></div>
                 </div>
-
-                <div class="award-form-box card">
-                    <input type="text" id="awardTitle" placeholder="수상명 입력" />
-                    <input type="text" id="awardDesc" placeholder="설명 입력" />
-                    <button id="addAwardBtn" class="btn primary">+ 추가</button>
-                </div>
-            </div>
-
-            <div class="award-scroll-box" id="awardScrollBox">
-                <div class="award-list" id="awardList"></div>
             </div>
         </section>
     </main>
+
+    <div id="awardModal" class="award-modal">
+        <div class="award-modal-box">
+            <button id="awardModalClose" type="button" class="award-modal-close">&times;</button>
+
+            <h2 class="award-modal-title">수상 기록 추가</h2>
+
+            <input type="text" id="awardTitle" placeholder="수상명 입력" />
+            <textarea id="awardDesc" placeholder="설명 입력"></textarea>
+
+            <button id="addAwardBtn" type="button" class="btn primary">수상 기록 등록</button>
+        </div>
+    </div>
 
     <footer class="footer">
         <div class="container footer-wrap">

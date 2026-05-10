@@ -34,35 +34,15 @@
             </div>
         </section>
 
-        <section class="section notice-admin-section">
-            <div class="container small-container">
-                <div class="card notice-admin-box">
-                    <div class="notice-admin-top">
-                        <div>
-                            <h2 class="notice-admin-title">관리자 메뉴</h2>
-                            <p class="notice-admin-desc" id="adminStatusText">관리자 로그인이 필요합니다.</p>
-                        </div>
-                        <div class="notice-admin-actions">
-                            <button id="adminLoginBtn" class="btn secondary">관리자 로그인</button>
-                            <button id="adminLogoutBtn" class="btn secondary" style="display: none;">로그아웃</button>
-                        </div>
-                    </div>
-
-                    <div id="noticeWriteBox" class="notice-write-box" style="display: none;">
-                        <input type="text" id="noticeTitleInput" placeholder="공지 제목 입력" />
-                        <textarea id="noticeContentInput" placeholder="공지 내용을 입력하세요."></textarea>
-                        <button id="noticeSubmitBtn" class="btn primary">공지 등록</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <section class="section">
             <div class="container small-container">
                 <div class="notice-list-board">
                     <div class="notice-list-head">
                         <div>제목</div>
-                        <div>작성일</div>
+                        <div class="notice-date-head">
+                            <span>작성일</span>
+                            <button id="noticeOpenBtn" type="button" class="notice-plus-btn">+</button>
+                        </div>
                     </div>
                     <div id="noticeBoard">
                         <div class="notice-empty">공지사항을 불러오는 중입니다.</div>
@@ -72,6 +52,18 @@
         </section>
     </main>
 
+    <div id="noticeWriteModal" class="notice-write-modal">
+        <div class="notice-write-modal-box">
+            <button id="noticeWriteModalClose" type="button" class="notice-write-modal-close">&times;</button>
+
+            <h2 class="notice-write-modal-title">공지 등록</h2>
+
+            <input type="text" id="noticeTitleInput" placeholder="공지 제목 입력" />
+            <textarea id="noticeContentInput" placeholder="공지 내용을 입력하세요."></textarea>
+
+            <button id="noticeSubmitBtn" type="button" class="btn primary">공지 등록</button>
+        </div>
+    </div>
     <div id="noticeModal" class="notice-modal">
         <div class="notice-modal-box">
             <button id="noticeModalClose" class="notice-modal-close">&times;</button>

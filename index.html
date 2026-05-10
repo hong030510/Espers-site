@@ -97,7 +97,12 @@
                     </div>
                     <div class="home-calendar-box card">
                         <div class="home-calendar-header">
-                            <h2>동아리 일정</h2>
+                            <div class="calendar-title-wrap">
+                                <h2>동아리 일정</h2>
+                                <button id="scheduleOpenBtn" type="button" class="schedule-plus-btn"
+                                    style="display: none;">+</button>
+                            </div>
+
                             <div class="calendar-month-nav">
                                 <button id="calendarPrevBtn" type="button">&lt;</button>
                                 <span id="calendarMonthLabel">2026.03</span>
@@ -181,6 +186,21 @@
                 </div>
             </div>
         </section>
+
+        <div id="scheduleModal" class="schedule-modal">
+            <div class="schedule-modal-box">
+                <button id="scheduleModalClose" type="button" class="schedule-modal-close">&times;</button>
+
+                <h2 class="schedule-modal-title">일정 추가</h2>
+
+                <input type="date" id="scheduleDateInput" />
+                <input type="text" id="scheduleTitleInput" placeholder="일정 제목 입력" />
+                <input type="text" id="scheduleLocationInput" placeholder="장소 입력" />
+                <textarea id="scheduleDescInput" placeholder="설명 입력"></textarea>
+
+                <button id="scheduleSubmitBtn" type="button" class="btn primary">일정 등록</button>
+            </div>
+        </div>
     </main>
 
     <footer class="footer">

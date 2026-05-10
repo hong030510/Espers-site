@@ -55,27 +55,8 @@ const imageModalClose = document.getElementById("imageModalClose");
 const imageModalPrev = document.getElementById("imageModalPrev");
 const imageModalNext = document.getElementById("imageModalNext");
 
-let modalScale = 1;
-let modalTranslateX = 0;
-let modalTranslateY = 0;
-let isDraggingModalImage = false;
-let dragStartX = 0;
-let dragStartY = 0;
-
 let currentGalleryIndex = 0;
 let currentGalleryList = [];
-
-function updateModalImageTransform() {
-    if (!imageModalImg) return;
-    imageModalImg.style.transform = `translate(${modalTranslateX}px, ${modalTranslateY}px) scale(${modalScale})`;
-}
-
-function resetModalImageTransform() {
-    modalScale = 1;
-    modalTranslateX = 0;
-    modalTranslateY = 0;
-    updateModalImageTransform();
-}
 
 function openGalleryModal(index, list) {
     if (!imageModal || !imageModalImg || !list.length) return;
@@ -84,10 +65,10 @@ function openGalleryModal(index, list) {
     currentGalleryIndex = index;
 
     imageModal.classList.add("show");
+    imageModal.classList.add("gallery-large");
     imageModalImg.src = currentGalleryList[currentGalleryIndex].image;
     imageModalImg.alt = currentGalleryList[currentGalleryIndex].title;
     document.body.style.overflow = "hidden";
-    resetModalImageTransform();
 }
 
 function moveGallery(step) {
@@ -106,8 +87,6 @@ function closeImageModal() {
     imageModal.classList.remove("show");
     imageModal.classList.remove("gallery-large");
     document.body.style.overflow = "";
-
-    resetModalImageTransform();
 }
 
 zoomableImages.forEach((img) => {
@@ -117,7 +96,6 @@ zoomableImages.forEach((img) => {
         imageModalImg.src = img.src;
         imageModalImg.alt = img.alt;
         document.body.style.overflow = "hidden";
-        resetModalImageTransform();
     });
 });
 
@@ -146,8 +124,6 @@ if (imageModalNext) {
         moveGallery(1);
     });
 }
-
-
 
 /* 날짜 포맷 */
 function formatDate(timestamp) {
@@ -435,6 +411,7 @@ if (noticeSubmitBtn) {
 
             noticeTitleInput.value = "";
             noticeContentInput.value = "";
+            closeNoticeWriteModal();
             alert("공지사항이 등록되었습니다.");
         } catch (error) {
             console.error("공지 등록 실패:", error);
@@ -528,6 +505,11 @@ if (noticeBoard) {
 }
 
 /* 수상경력 */
+/* 수상경력 */
+const awardOpenBtn = document.getElementById("awardOpenBtn");
+const awardModal = document.getElementById("awardModal");
+const awardModalClose = document.getElementById("awardModalClose");
+
 const awardTitle = document.getElementById("awardTitle");
 const awardDesc = document.getElementById("awardDesc");
 const addAwardBtn = document.getElementById("addAwardBtn");
@@ -536,8 +518,60 @@ const awardScrollBox = document.getElementById("awardScrollBox");
 
 const awardsRef = collection(db, "awards");
 
+function openAwardModal() {
+    if (!awardModal) return;
+    awardModal.classList.add("show");
+    document.body.style.overflow = "hidden";
+}
+
+function closeAwardModal() {
+    if (!awardModal) return;
+    awardModal.classList.remove("show");
+    document.body.style.overflow = "";
+}
+
+if (awardOpenBtn) {
+    awardOpenBtn.addEventListener("click", () => {
+        if (!isAdmin(auth.currentUser)) {
+            alert("관리자만 수상 기록을 등록할 수 있습니다.");
+            return;
+        }
+
+        openAwardModal();
+    });
+}
+
+if (awardModalClose) {
+    awardModalClose.addEventListener("click", closeAwardModal);
+}
+
+if (awardModal) {
+    awardModal.addEventListener("click", (e) => {
+        if (e.target === awardModal) {
+            closeAwardModal();
+        }
+    });
+}
+
+onAuthStateChanged(auth, (user) => {
+    if (!awardOpenBtn) return;
+
+    if (isAdmin(user)) {
+        awardOpenBtn.style.display = "inline-flex";
+    } else {
+        awardOpenBtn.style.display = "none";
+    }
+});
+
 if (addAwardBtn) {
     addAwardBtn.addEventListener("click", async () => {
+        const user = auth.currentUser;
+
+        if (!isAdmin(user)) {
+            alert("관리자만 수상 기록을 등록할 수 있습니다.");
+            return;
+        }
+
         try {
             const title = awardTitle.value.trim();
             const desc = awardDesc.value.trim();
@@ -560,7 +594,8 @@ if (addAwardBtn) {
                 awardScrollBox.scrollTop = 0;
             }
 
-            alert("추가 완료");
+            closeAwardModal();
+            alert("수상 기록이 등록되었습니다.");
         } catch (error) {
             console.error("추가 실패:", error);
             alert("추가 실패: " + error.message);
@@ -568,6 +603,44 @@ if (addAwardBtn) {
     });
 }
 
+if (awardList) {
+    const q = query(awardsRef, orderBy("createdAt", "desc"));
+
+    onSnapshot(
+        q,
+        (snapshot) => {
+            awardList.innerHTML = "";
+
+            if (snapshot.empty) {
+                awardList.innerHTML = `
+                    <div class="notice-empty">등록된 수상 기록이 없습니다.</div>
+                `;
+                return;
+            }
+
+            snapshot.forEach((doc) => {
+                const data = doc.data();
+
+                const item = document.createElement("div");
+                item.className = "card award-item";
+                item.innerHTML = `
+                    <h3>${data.title || ""}</h3>
+                    <p>${data.desc || ""}</p>
+                `;
+
+                awardList.appendChild(item);
+            });
+
+            if (awardScrollBox) {
+                awardScrollBox.scrollTop = 0;
+            }
+        },
+        (error) => {
+            console.error("목록 불러오기 실패:", error);
+            alert("목록 불러오기 실패: " + error.message);
+        }
+    );
+}
 if (awardList) {
     const q = query(awardsRef, orderBy("createdAt", "desc"));
 
@@ -863,40 +936,151 @@ document.addEventListener("keydown", (e) => {
     if (e.key === "ArrowRight") moveGallery(1);
 });
 
-if (imageModalImg) {
-    imageModalImg.addEventListener("wheel", (e) => {
-        if (!imageModal || !imageModal.classList.contains("show")) return;
+/* 일정 추가 모달 */
+const scheduleOpenBtn = document.getElementById("scheduleOpenBtn");
+const scheduleModal = document.getElementById("scheduleModal");
+const scheduleModalClose = document.getElementById("scheduleModalClose");
+const scheduleDateInput = document.getElementById("scheduleDateInput");
+const scheduleTitleInput = document.getElementById("scheduleTitleInput");
+const scheduleLocationInput = document.getElementById("scheduleLocationInput");
+const scheduleDescInput = document.getElementById("scheduleDescInput");
+const scheduleSubmitBtn = document.getElementById("scheduleSubmitBtn");
 
-        e.preventDefault();
+function openScheduleModal() {
+    if (!scheduleModal) return;
+    scheduleModal.classList.add("show");
+    document.body.style.overflow = "hidden";
+}
 
-        const delta = e.deltaY > 0 ? -0.1 : 0.1;
-        const nextScale = Math.min(Math.max(modalScale + delta, 1), 4);
+function closeScheduleModal() {
+    if (!scheduleModal) return;
+    scheduleModal.classList.remove("show");
+    document.body.style.overflow = "";
+}
 
-        modalScale = nextScale;
-        updateModalImageTransform();
-    }, { passive: false });
+if (scheduleOpenBtn) {
+    scheduleOpenBtn.addEventListener("click", () => {
+        if (!isAdmin(auth.currentUser)) {
+            alert("관리자만 일정을 등록할 수 있습니다.");
+            return;
+        }
 
-    imageModalImg.addEventListener("mousedown", (e) => {
-        if (modalScale <= 1) return;
-
-        isDraggingModalImage = true;
-        dragStartX = e.clientX - modalTranslateX;
-        dragStartY = e.clientY - modalTranslateY;
-        imageModalImg.style.cursor = "grabbing";
+        openScheduleModal();
     });
 }
 
-document.addEventListener("mousemove", (e) => {
-    if (!isDraggingModalImage) return;
+if (scheduleModalClose) {
+    scheduleModalClose.addEventListener("click", closeScheduleModal);
+}
 
-    modalTranslateX = e.clientX - dragStartX;
-    modalTranslateY = e.clientY - dragStartY;
-    updateModalImageTransform();
-});
+if (scheduleModal) {
+    scheduleModal.addEventListener("click", (e) => {
+        if (e.target === scheduleModal) {
+            closeScheduleModal();
+        }
+    });
+}
 
-document.addEventListener("mouseup", () => {
-    isDraggingModalImage = false;
-    if (imageModalImg) {
-        imageModalImg.style.cursor = modalScale > 1 ? "grab" : "default";
+onAuthStateChanged(auth, (user) => {
+    if (!scheduleOpenBtn) return;
+
+    if (isAdmin(user)) {
+        scheduleOpenBtn.style.display = "inline-flex";
+    } else {
+        scheduleOpenBtn.style.display = "none";
     }
 });
+
+if (scheduleSubmitBtn) {
+    scheduleSubmitBtn.addEventListener("click", async () => {
+        const user = auth.currentUser;
+
+        if (!isAdmin(user)) {
+            alert("관리자만 일정을 등록할 수 있습니다.");
+            return;
+        }
+
+        const date = scheduleDateInput.value;
+        const title = scheduleTitleInput.value.trim();
+        const location = scheduleLocationInput.value.trim();
+        const desc = scheduleDescInput.value.trim();
+
+        if (!date || !title) {
+            alert("날짜와 일정 제목을 입력하세요.");
+            return;
+        }
+
+        try {
+            await addDoc(collection(db, "schedules"), {
+                date,
+                title,
+                location,
+                desc,
+                createdAt: serverTimestamp()
+            });
+
+            scheduleDateInput.value = "";
+            scheduleTitleInput.value = "";
+            scheduleLocationInput.value = "";
+            scheduleDescInput.value = "";
+
+            closeScheduleModal();
+            alert("일정이 등록되었습니다.");
+        } catch (error) {
+            console.error("일정 등록 실패:", error);
+            alert("일정 등록 실패: " + error.message);
+        }
+    });
+}
+
+/* 공지사항 + 버튼 / 작성 모달 */
+const noticeOpenBtn = document.getElementById("noticeOpenBtn");
+const noticeWriteModal = document.getElementById("noticeWriteModal");
+const noticeWriteModalClose = document.getElementById("noticeWriteModalClose");
+
+function openNoticeWriteModal() {
+    if (!noticeWriteModal) return;
+    noticeWriteModal.classList.add("show");
+    document.body.style.overflow = "hidden";
+}
+
+function closeNoticeWriteModal() {
+    if (!noticeWriteModal) return;
+    noticeWriteModal.classList.remove("show");
+    document.body.style.overflow = "";
+}
+
+if (noticeOpenBtn) {
+    noticeOpenBtn.addEventListener("click", async () => {
+        try {
+            let user = auth.currentUser;
+
+            if (!user) {
+                const result = await signInWithPopup(auth, provider);
+                user = result.user;
+            }
+
+            if (!isAdmin(user)) {
+                alert("관리자 계정만 공지를 등록할 수 있습니다.");
+                return;
+            }
+
+            openNoticeWriteModal();
+        } catch (error) {
+            console.error("관리자 로그인 실패:", error);
+            alert("로그인 실패: " + error.message);
+        }
+    });
+}
+
+if (noticeWriteModalClose) {
+    noticeWriteModalClose.addEventListener("click", closeNoticeWriteModal);
+}
+
+if (noticeWriteModal) {
+    noticeWriteModal.addEventListener("click", (e) => {
+        if (e.target === noticeWriteModal) {
+            closeNoticeWriteModal();
+        }
+    });
+}
