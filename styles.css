@@ -1124,7 +1124,28 @@ ul {
 
 .calendar-schedule-list {
     display: grid;
-    gap: 10px;
+    gap: 12px;
+    max-height: 360px;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+.calendar-schedule-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.calendar-schedule-list::-webkit-scrollbar-track {
+    background: #dbeafe;
+    border-radius: 999px;
+}
+
+.calendar-schedule-list::-webkit-scrollbar-thumb {
+    background: #60a5fa;
+    border-radius: 999px;
+}
+
+.calendar-schedule-list::-webkit-scrollbar-thumb:hover {
+    background: #3b82f6;
 }
 
 .calendar-schedule-item {
