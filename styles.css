@@ -1929,3 +1929,32 @@ ul {
     border-color: #2563eb;
     box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
 }
+
+.instagram-link {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 2px;
+}
+
+.instagram-link:hover {
+    color: #2563eb;
+}
+
+/* notice modal url fix */
+.notice-modal-box {
+    overflow-x: hidden;
+}
+
+.notice-modal-content {
+    word-break: break-word;
+    overflow-wrap: anywhere;
+}
+
+.notice-modal-link {
+    color: #2563eb;
+    font-weight: 700;
+    text-decoration: underline;
+    word-break: break-all;
+    overflow-wrap: anywhere;
+}

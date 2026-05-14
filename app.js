@@ -286,6 +286,26 @@ if (calendarGrid) {
     );
 }
 
+function escapeHTML(text) {
+    return String(text || "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+}
+
+function linkifyText(text) {
+    const escaped = escapeHTML(text);
+    const urlRegex = /(https?:\/\/[^\s<]+)/g;
+
+    return escaped
+        .replace(urlRegex, (url) => {
+            return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="notice-modal-link">${url}</a>`;
+        })
+        .replace(/\n/g, "<br>");
+}
+
 /* 관리자 판별 */
 function isAdmin(user) {
     return !!user && user.email === ADMIN_EMAIL;
@@ -433,7 +453,7 @@ function openNoticeModal(title, date, content) {
 
     noticeModalTitle.textContent = title || "";
     noticeModalDate.textContent = date || "";
-    noticeModalContent.textContent = content || "";
+    noticeModalContent.innerHTML = linkifyText(content || "");
     noticeModal.classList.add("show");
     document.body.style.overflow = "hidden";
 }
@@ -835,7 +855,23 @@ const galleryThemes = [
                 image: getGraduateImage(num)
             };
         })
-    }
+    },
+    {
+        key: "hangang",
+        title: "한강 피크닉!",
+        desc: "ESPERS 한강 피크닉!",
+        cover: "assets/hangang/1.jpg",
+        items: Array.from({ length: 3 }, (_, i) => {
+            const num = i + 1;
+
+            return {
+                id: num,
+                type: "activity",
+                title: `한강 나들이 ${num}`,
+                image: `assets/hangang/${num}.jpg`
+            };
+        })
+    }   
 
     // 나중에 이런 식으로 추가하면 됨
     // {
